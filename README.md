@@ -1,21 +1,12 @@
 # Fizzbuzz
 
-**TODO: Add description**
+**Parametrized version od FizzBuzz**
 
-## Installation
+Run `iex -S mix` and:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `fizzbuzz` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:fizzbuzz, "~> 0.1.0"}
-  ]
-end
+1. Run `Fizzbuzz.run` to start FizzBuzz with defaults: range `1..100` and `3 - Fizz`, `5 - Buzz`.
+2. Run e.g. `Fizzbuzz.run(1..20, %{2 => "Fizz", 4 => "Buzz", 5 => "Duzz", 10 => "Sazz"})` to print something like "FizzBuzzDuzzSazz" for number 20, and analogical for other numbers
+3. You can benchmark results with Benchmark module: 
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/fizzbuzz](https://hexdocs.pm/fizzbuzz).
-
+Benchmark.measure(fn -> Fizzbuzz.run(1..200000, %{2 => "Fizz", 4 => "Buzz", 5 => "Duzz", 10 => "Sazz"}) end)
+```
