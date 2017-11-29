@@ -17,8 +17,8 @@ defmodule Fizzbuzz do
   defp maybe_remove_first?([elem]), do: [elem]
   defp maybe_remove_first?([head | tail] = list), do: if (head |> String.match?(~r/^\d+$/)), do: tail, else: list
 
-  def maybe_fizzbuzz?(0, [], map, divider, _num), do: [map[divider]]
-  def maybe_fizzbuzz?(0, acc, map, divider, _num), do: acc ++ [map[divider]]
-  def maybe_fizzbuzz?(_, [], _map, _divider, num), do: [num |> Integer.to_string]
-  def maybe_fizzbuzz?(_, acc, _map, _divider, _num), do: acc
+  defp maybe_fizzbuzz?(0, [], map, divider, _num), do: [map[divider]]
+  defp maybe_fizzbuzz?(0, acc, map, divider, _num), do: acc ++ [map[divider]]
+  defp maybe_fizzbuzz?(_, [], _map, _divider, num), do: [num |> Integer.to_string]
+  defp maybe_fizzbuzz?(_, acc, _map, _divider, _num), do: acc
 end
