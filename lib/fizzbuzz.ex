@@ -1,10 +1,25 @@
 defmodule Fizzbuzz do
-  def run, do: for x <- 0..100, do: x |> fizzbuzz
+  def run(range \\ 1..100, map \\ %{3 => "Fizz", 5 => "Buzz"}), do: for x <- range, do: x |> fizzbuzz(map)
 
-  defp fizzbuzz(x), do: fizz_or_buzz?(x, [rem(x, 3), rem(x, 5)]) |> IO.puts
+  defp fizzbuzz(x, map) do
+    Map.keys(map)
+    |> Enum.reduce([], &(fizz_or_buzz?(x, map, &1, &2)))
+    |> maybe_remove_first?
+    |> List.to_string
+    |> IO.puts
+  end
 
-  defp fizz_or_buzz?(x, [0,0]), do: "#{x} - FizzBuzz"
-  defp fizz_or_buzz?(x, [_,0]), do: "#{x} - Buzz"
-  defp fizz_or_buzz?(x, [0,_]), do: "#{x} - Fizz"
-  defp fizz_or_buzz?(x, [_,_]), do: x
+  defp fizz_or_buzz?(num, map, divider, acc) do
+      rem(num, divider)
+      |> maybe_fizzbuzz?(acc, map, divider, num)
+  end
+
+  defp maybe_remove_first?([elem]), do: [elem]
+  defp maybe_remove_first?([_] = list), do: list |> maybe_remove_first?
+  defp maybe_remove_first?([head | tail] = list), do: if (head |> String.match?(~r/^\d+$/)), do: tail, else: list
+
+  def maybe_fizzbuzz?(0, [], map, divider, num), do: [map[divider]]
+  def maybe_fizzbuzz?(0, acc, map, divider, num), do: acc ++ [map[divider]]
+  def maybe_fizzbuzz?(_, [], map, divider, num), do: [num |> Integer.to_string]
+  def maybe_fizzbuzz?(_, acc, map, divider, num), do: acc
 end
